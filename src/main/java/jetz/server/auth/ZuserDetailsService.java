@@ -1,4 +1,4 @@
-package jetz.server.service;
+package jetz.server.auth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ZuserSecurityService implements UserDetailsService {
-    private final Logger logger = LoggerFactory.getLogger(ZuserSecurityService.class);
+public class ZuserDetailsService implements UserDetailsService {
+    private final Logger logger = LoggerFactory.getLogger(ZuserDetailsService.class);
 
     private final ZuserRepository zuserRepository;
 
