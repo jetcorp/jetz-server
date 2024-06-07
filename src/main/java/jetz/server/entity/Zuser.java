@@ -14,10 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Zuser {
     @Id
-    @Column(columnDefinition = "BIGINT(20) NOT NULL UNIQUE KEY auto_increment")
-    private Long id;
-
-    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
