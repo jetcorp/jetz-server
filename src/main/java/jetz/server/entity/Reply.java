@@ -29,7 +29,7 @@ public class Reply {
     @JoinColumn(name = "zname")
     private Zuser zname;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String content;
 
     private LocalDateTime regDateTime;
