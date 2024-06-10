@@ -22,7 +22,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody SignupRequestDto request) throws Exception {
+    public ResponseEntity login(@RequestBody LoginRequestDto request) throws Exception {
         return new ResponseEntity<>(authService.login(request), HttpStatus.OK);
     }
 
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/user/info")
-    public ResponseEntity getUserinfo(@RequestParam String email) throws Exception {
+    public ResponseEntity getUserinfo(@RequestParam("email") String email) throws Exception {
         return new ResponseEntity<>(authService.getZuser(email), HttpStatus.OK);
     }
 }

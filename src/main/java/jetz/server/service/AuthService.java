@@ -3,6 +3,8 @@ package jetz.server.service;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import jetz.server.auth.JwtProvider;
+import jetz.server.dto.LoginRequestDto;
+import jetz.server.dto.ResponseDto;
 import jetz.server.dto.SignupRequestDto;
 import jetz.server.dto.SignupResponseDto;
 import jetz.server.entity.Zuser;
@@ -20,23 +22,30 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
-    public SignupResponseDto login(SignupRequestDto request) throws Exception {
+    public ResponseDto login(LoginRequestDto request) throws Exception {
         Zuser zuser = zuserRepository.findByEmail(request.getEmail()).orElseThrow(() ->
                 new BadCredentialsException("잘못된 계정정보입니다."));
 
         if (!passwordEncoder.matches(request.getPassword(), zuser.getPassword())) {
-            throw new BadCredentialsException("잘못된 계정정보입니다.");
+            throw new BadCredentialsException("비밀번호 불일치");
         }
 
-        return SignupResponseDto.builder()
+        SignupResponseDto loginResult = SignupResponseDto.builder()
                 .email(zuser.getEmail())
                 .zname(zuser.getZname())
                 .roles(zuser.getRoles())
                 .token(jwtProvider.createToken(zuser.getEmail(), zuser.getRoles()))
                 .build();
+
+        ResponseDto<SignupResponseDto> responseDto = ResponseDto.<SignupResponseDto>builder()
+                .resultcode(1)
+                .data(loginResult)
+                .build();
+
+        return responseDto;
     }
 
-    public boolean signup(SignupRequestDto request) throws Exception {
+    public ResponseDto signup(SignupRequestDto request) throws Exception {
         try {
             Zuser zuser = Zuser.builder()
                     .email(request.getEmail())
@@ -51,12 +60,24 @@ public class AuthService {
             throw new Exception("잘못된 요청입니다.");
         }
 
-        return true;
+        ResponseDto response = ResponseDto.builder()
+                .resultcode(1)
+                .build();
+
+        return response;
     }
 
-    public SignupResponseDto  getZuser(String email) throws Exception {
+    public ResponseDto getZuser(String email) throws Exception {
         Zuser zuser = zuserRepository.findByEmail(email).orElseThrow(() ->
                 new Exception("계정을 찾을 수 없습니다."));
-        return new SignupResponseDto(zuser);
+
+        SignupResponseDto userInfo = new SignupResponseDto(zuser);
+
+        ResponseDto<SignupResponseDto> response = ResponseDto.<SignupResponseDto>builder()
+                .resultcode(1)
+                .data(userInfo)
+                .build();
+
+        return response;
     }
 }

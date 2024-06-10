@@ -1,5 +1,6 @@
 package jetz.server.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
 import jetz.server.entity.Authority;
@@ -15,8 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignupResponseDto {
     private String email;
+
     private String zname;
+
     private List<Authority> roles = new ArrayList<>();
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
 
     public SignupResponseDto(Zuser zuser) {

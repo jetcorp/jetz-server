@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BlogController {
     @GetMapping("/@{zname}")
-    public ResponseEntity blog(@PathVariable String zname) {
+    public ResponseEntity blog(@PathVariable("zname") String zname) {
         return new ResponseEntity<>(zname, HttpStatus.OK);
     }
 }

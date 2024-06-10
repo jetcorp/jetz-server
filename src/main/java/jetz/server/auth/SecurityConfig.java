@@ -53,6 +53,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((authorizeHttpRequest) -> authorizeHttpRequest
+                        .requestMatchers(new AntPathRequestMatcher("/user/**"))
+                        .authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/**"))
                         .permitAll()
                         .anyRequest().permitAll())

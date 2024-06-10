@@ -1,7 +1,11 @@
 package jetz.server.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
+@Builder
 public class ResponseDto <T> {
     private Integer resultcode;
 
