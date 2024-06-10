@@ -1,3 +1,4 @@
+/*
 package jetz.server.service;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 @RequiredArgsConstructor
 public class ZuserService {
@@ -36,3 +38,4 @@ public class ZuserService {
         return zuser;
     }
 }
+*/
